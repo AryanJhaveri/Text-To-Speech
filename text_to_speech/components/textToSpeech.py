@@ -22,14 +22,16 @@ class TTSapplication():
         try:
             text_file_name = TEXT_FILE_NAME
             text_file_path = os.path.join(self.text_dir, TEXT_FILE_NAME)
+            os.makedirs(self.text_dir, exist_ok=True)
             with open(text_file_path, "a+") as file:
                 file.write(f'\n {text}')
                 
                 #create object for gtts
                 tts = gTTS(text = text, lang='en', tld=accent, slow=False)
                 
-                file_name = f"converted_file{CURRENT_TIME_STAMP}.mp3"
-
+                file_name = f"converted_file_{CURRENT_TIME_STAMP}.mp3"
+                os.makedirs(self.audio_dir, exist_ok=True)
+                
                 audio_path = os.path.join(self.audio_dir, file_name)
                 
                 #save the audio file
