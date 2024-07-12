@@ -1,5 +1,5 @@
 from text_to_speech.exception import TTSException
-from flask import Flask, request, rennder_template
+from flask import Flask, request, render_template
 from text_to_speech.components.get_accent import get_accent_message, get_accent_tld
 from flask_cors import CORS, cross_origin
 from text_to_speech.components.textToSpeech import TTSapplication
@@ -8,17 +8,17 @@ import sys
 app= Flask(__name__)
 CORS(app)
 
-@app.route('/',method=['GET'])
+@app.route('/',methods=['GET'])
 @cross_origin()
 def home():
     try:    
         accent_list = get_accent_message
-        return rennder_template('index.html', accent_list=accent_list)
+        return render_template('index.html', accent_list=accent_list)
     except Exception as e:
         raise TTSException(e, sys)
 
 @app.route('/predict', methods=['GET','POST'])
-@cross_origin
+@cross_origin()
 def predict():
     try:
         if request =="POST":
@@ -32,5 +32,5 @@ def predict():
     
 
 if __name__ == '__main__':
-    app.run(post=5000, debug =True)
+    app.run(port=5000, debug =True)
     

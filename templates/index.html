@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f7f7f7;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        select, input[type="text"], button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        audio {
+            margin-top: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Text to Speech</h1>
+        <form id="ttsForm">
+            <div class="form-group">
+                <label for="accent">Select Accent:</label>
+                <select id="accent" name="accent">
+                    <!-- Options will be populated by JavaScript -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="text">Enter Text:</label>
+                <input type="text" id="text" name="text" required>
+            </div>
+            <button type="submit">Convert to Speech</button>
+        </form>
+        <audio id="audioPlayer" controls style="display:none;"></audio>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Populate accent dropdown
+            fetch('/')
+                .then(response => response.json())
+                .then(data => {
+                    const accentSelect = document.getElementById('accent');
+                    data.accent_list.forEach(accent => {
+                        const option = document.createElement('option');
+                        option.value = accent;
+                        option.textContent = accent;
+                        accentSelect.appendChild(option);
+                    });
+                });
+
+            // Handle form submission
+            document.getElementById('ttsForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const text = document.getElementById('text').value;
+                const accent = document.getElementById('accent').value;
+                
+                fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ data: text, accent: accent })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const audioPlayer = document.getElementById('audioPlayer');
+                    audioPlayer.src = `data:audio/mp3;base64,${data.data}`;
+                    audioPlayer.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
