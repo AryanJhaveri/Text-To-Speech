@@ -66,7 +66,6 @@ Convert Text To Speech Using Python And Flask
 
 3. Use the dropdown to select an accent, enter text in the textbox, and click the "Submit" button to generate and play the audio file.
 
-## File Explanation
 
 ## File Explanation
 
@@ -83,21 +82,23 @@ Convert Text To Speech Using Python And Flask
 ### text_to_speech
 
 #### artifact
-- **tts_audio**: Stores generated audio files.
-- **tts_text**: Stores input text files.
+- **tts_audio**: 
+  - **Description**: Stores generated audio files.
+- **tts_text**: 
+  - **Description**: Stores input text files.
 
 #### components
 
 ##### get_accent.py
 - **Description**: Contains functions related to accents.
-- **Functions**:
-  - `get_accent_message()`: Retrieves available accent messages.
-  - `get_accent_tld()`: Retrieves the top-level domain (TLD) for the selected accent.
+  - **Functions**:
+    1. `get_accent_message()`: Retrieves available accent messages.
+    2. `get_accent_tld()`: Retrieves the top-level domain (TLD) for the selected accent.
 
 ##### textToSpeech.py
 - **Description**: Contains the `TTSapplication` class.
-- **Functions**:
-  - `text2speech(text, accent)`: Converts input text to speech using the GTTS library and saves the audio file.
+  - **Functions**:
+    1. `text2speech(text, accent)`: Converts input text to speech using the GTTS library and saves the audio file.
 
 #### constants
 - **Description**: Holds constant values used across the project.
@@ -118,5 +119,4 @@ Convert Text To Speech Using Python And Flask
 - The `tts_env` directory is the virtual environment for the project.
 
 Make sure to activate the virtual environment before running the application to ensure all dependencies are correctly installed.
-
 
