@@ -68,40 +68,50 @@ Convert Text To Speech Using Python And Flask
 
 ## File Explanation
 
+## File Explanation
+
 ### app.py
-- The main entry point for the Flask application. It sets up the routes for the home page and the prediction endpoint.
+- **Description**: The main entry point for the Flask application.
+- **Functionality**: Sets up the routes for the home page and the prediction endpoint.
 
 ### templates
 
 #### index.html
-- The main HTML file containing the user interface for the text-to-speech application. It includes a dropdown for accent selection, a textbox for input text, and a submit button to generate the audio.
+- **Description**: The main HTML file containing the user interface for the text-to-speech application.
+- **Functionality**: Includes a dropdown for accent selection, a textbox for input text, and a submit button to generate the audio.
 
 ### text_to_speech
 
 #### artifact
-- Contains subdirectories `tts_audio` for storing generated audio files and `tts_text` for storing input text files.
+- **tts_audio**: Stores generated audio files.
+- **tts_text**: Stores input text files.
 
 #### components
 
 ##### get_accent.py
-- Contains functions to get available accents and their corresponding top-level domains (TLDs).
+- **Description**: Contains functions related to accents.
+- **Functions**:
+  - `get_accent_message()`: Retrieves available accent messages.
+  - `get_accent_tld()`: Retrieves the top-level domain (TLD) for the selected accent.
 
 ##### textToSpeech.py
-- Contains the `TTSapplication` class which handles the conversion of text to speech using the GTTS library.
+- **Description**: Contains the `TTSapplication` class.
+- **Functions**:
+  - `text2speech(text, accent)`: Converts input text to speech using the GTTS library and saves the audio file.
 
 #### constants
-- Holds constant values used across the project.
+- **Description**: Holds constant values used across the project.
 
 #### entity
 
 ##### config_entity.py
-- Defines configuration entities used for setting up the application.
+- **Description**: Defines configuration entities used for setting up the application.
 
 #### exception
-- Defines custom exceptions for the application.
+- **Description**: Defines custom exceptions for the application.
 
 #### logger
-- Sets up logging configurations for the application.
+- **Description**: Sets up logging configurations for the application.
 
 ## Additional Notes
 - The `artifact` directory contains subdirectories for storing generated audio and text files.
