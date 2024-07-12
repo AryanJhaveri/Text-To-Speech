@@ -1,0 +1,44 @@
+from text_to_speech.exception import TTSException
+from text_to_speech.logger import logger
+from text_to_speech.entity.config_entity import TTSConfig
+import sys
+from text_to_speech.constants import TEXT_FILE_NAME
+from text_to_speech.constants import CURRENT_TIME_STAMP
+import os
+from gtts import gTTS
+import base64
+
+class TTSapplication():
+    def __init__(self, app_config = TTSConfig()) ->  None:
+        try:
+            self.app_config = app_config
+            self.artifact_dir =app_config.artifact_dir
+            self.audio_dir = app_config.audio_dir
+            self.text_dir = app_config.text_dir
+        except Exception as e:
+            raise TTSException(e , sys)
+        
+    def text2speech(self, text, accent):
+        try:
+            text_file_name = TEXT_FILE_NAME
+            text_file_path = os.path.join(self.text_dir, TEXT_FILE_NAME)
+            with open(text_file_path, "a+") as file:
+                file.write(f'\n {text}')
+                
+                #create object for gtts
+                tts = gTTS(text = text, lang='en', tld=accent, slow=False)
+                
+                file_name = f"converted_file{CURRENT_TIME_STAMP}.mp3"
+
+                audio_path = os.path.join(self.audio_dir, file_name)
+                
+                #save the audio file
+                tts.save(audio_path)
+                
+                with open(audio_path, "rb") as file:
+                    my_string = base64.b64decode(file.read())
+                    
+                return my_string
+            
+        except Exception as e:
+            raise TTSException(e , sys)
