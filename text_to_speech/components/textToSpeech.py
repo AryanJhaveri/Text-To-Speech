@@ -20,27 +20,39 @@ class TTSapplication():
         
     def text2speech(self, text, accent):
         try:
+            # Ensure directories exist
+            os.makedirs(self.text_dir, exist_ok=True)
+            os.makedirs(self.audio_dir, exist_ok=True)
+
             text_file_name = TEXT_FILE_NAME
             text_file_path = os.path.join(self.text_dir, TEXT_FILE_NAME)
-            os.makedirs(self.text_dir, exist_ok=True)
+
+            # Log text input
+            logger.info(f"Received text: {text}")
+
             with open(text_file_path, "a+") as file:
-                file.write(f'\n {text}')
-                
-                #create object for gtts
-                tts = gTTS(text = text, lang='en', tld=accent, slow=False)
-                
-                file_name = f"converted_file_{CURRENT_TIME_STAMP}.mp3"
-                os.makedirs(self.audio_dir, exist_ok=True)
-                
-                audio_path = os.path.join(self.audio_dir, file_name)
-                
-                #save the audio file
-                tts.save(audio_path)
-                
-                with open(audio_path, "rb") as file:
-                    my_string = base64.b64decode(file.read())
-                    
-                return my_string
-            
+                file.write(f'\n{text}')
+
+            # Create gTTS object
+            tts = gTTS(text=text, lang='en', tld=accent, slow=False)
+
+            file_name = f"converted_file_{CURRENT_TIME_STAMP}.mp3"
+            audio_path = os.path.join(self.audio_dir, file_name)
+
+            # Save the audio file
+            tts.save(audio_path)
+            logger.info(f"Audio file saved at: {audio_path}")
+
+            # Read and encode the audio file to base64
+            with open(audio_path, "rb") as file:
+                audio_content = file.read()
+                logger.info(f"Audio content length: {len(audio_content)}")
+                base64_audio = base64.b64encode(audio_content).decode('utf-8')
+                logger.info(f"Base64 encoded audio length: {len(base64_audio)}")
+
+            return base64_audio
+
         except Exception as e:
-            raise TTSException(e , sys)
+            raise TTSException(e, sys)
+
+        

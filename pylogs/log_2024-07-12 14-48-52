@@ -1,0 +1,13 @@
+12-07-2024 14-48 INFO _internal ========>[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+12-07-2024 14-48 INFO _internal ========>[33mPress CTRL+C to quit[0m
+12-07-2024 14-48 INFO _internal ========> * Restarting with stat
+12-07-2024 14-48 WARNING _internal ========> * Debugger is active!
+12-07-2024 14-48 INFO _internal ========> * Debugger PIN: 898-705-696
+12-07-2024 14-49 INFO _internal ========>127.0.0.1 - - [12/Jul/2024 14:49:24] "GET / HTTP/1.1" 200 -
+12-07-2024 14-49 INFO _internal ========>127.0.0.1 - - [12/Jul/2024 14:49:24] "GET /accent_list HTTP/1.1" 200 -
+12-07-2024 14-49 INFO textToSpeech ========>Received text: my name is aryan
+12-07-2024 14-49 INFO textToSpeech ========>Audio file saved at: D:\2_Extra\Data Science\Machine Learning Projects\Text_To_Speech\text-to-speech\text_to_speech\artifact\tts_audio\converted_file_2024-07-12:14-48-52.mp3
+12-07-2024 14-49 INFO _internal ========>127.0.0.1 - - [12/Jul/2024 14:49:29] "POST /predict HTTP/1.1" 200 -
+12-07-2024 14-50 INFO _internal ========> * Detected change in 'D:\\2_Extra\\Data Science\\Machine Learning Projects\\Text_To_Speech\\text-to-speech\\text_to_speech\\constants\\__init__.py', reloading
+12-07-2024 14-50 INFO _internal ========> * Restarting with stat
